@@ -73,7 +73,7 @@ def get_book(book_id: int, title: str = Path(description="The title and the id o
 
 
 @app.post("/create-book/")
-def create_book(book: Book):
+def create_book(book: Book = Path(description="The Book itself")):
     if book == None:
         return {"Error": "Book not filled"}
 
@@ -86,7 +86,7 @@ def create_book(book: Book):
 
 
 @app.put("/update-book/{book_id}")
-def update_book(book_id: int, book: updateBook):
+def update_book(book_id: int, book: updateBook = Path(description="The id of the book to modify and the modifications")):
     if book_id not in books:
         return {"Error": "Book does not exist"}
 
@@ -103,7 +103,7 @@ def update_book(book_id: int, book: updateBook):
 
 
 @app.delete("/delete-book/{book_id}")
-def delete_book(book_id: int):
+def delete_book(book_id: int = Path(description="The id of the book to delete")):
     if book_id not in books:
         return {"Error": "Book does not exist"}
 
